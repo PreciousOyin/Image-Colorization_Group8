@@ -43,3 +43,8 @@ The loss curves for Hubor Loss are:
 ![Huber_Results.png](Huber_Results.png)
 
 When the Huber loss was used, the same pattern was observed where the loss decreases for increasing epoch. It is important to note that the scale of the y-axis is much smaller for this regression than it is for the mean squared error. This means that it was able to reduce the error between predicted and actual values much better than the previous regression model.
+
+
+# Conclusion
+
+When working with image colorization using neural networks, the size and diversity of the training set are crucial factors that can significantly impact the output quality and performance of the model. It is not uncommon to observe different types of outputs when using training sets of varying sizes, such as 12 images or 500 images. In such cases, there are several potential sources of error that can contribute to these differences such as insufficent training size, lack of diversity, model complexity and capacity. Given more resources in the future we would increase the training set size and incorporate diverse microscopy images that adequately represent the variations and complexities encountered in biochemical engineering. This larger and more diverse training set, combined with appropriate model architectures, regularization techniques, and hyperparameter choices, would help improve the model's ability to generalize and produce consistent, high-quality colorization outputs across different input images.
