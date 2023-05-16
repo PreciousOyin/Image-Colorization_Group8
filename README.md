@@ -12,3 +12,7 @@ We wanted to compare how colorization would be affected if we trained 12 images 
 
 # Analysis 
 (Two different Criterions were used)
+
+When looking at the loss graphs for a mean squared error regression, we see that the overall pattern is that the loss decreases as the epoch increases for both the training and validation dataset. This means that as the model is going through the iterations of the images, it is minimizing the error between the predicted and actual values. However, for the validation curve, the scale of the y-axis is 1e6 meaning that the loss is quite large. 
+
+When the Huber loss was used, the same pattern was observed where the loss decreases for increasing epoch. It is important to note that the scale of the y-axis is much smaller for this regression than it is for the mean squared error. This means that it was able to reduce the error between predicted and actual values much better than the previous regression model.
