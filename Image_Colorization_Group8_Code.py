@@ -1,32 +1,31 @@
 # For plotting
 import numpy as np
 import matplotlib.pyplot as plt
-#%matplotlib inline
+
 # For conversion
 from skimage.color import lab2rgb, rgb2lab, rgb2gray
-from skimage import io
+
 # For everything
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
+
+
 # For our model
 import torchvision.models as models
 from torchvision import datasets, transforms
+
 # For utilities
 import os, shutil, time
 from pathlib import Path
 from PIL import Image
 
-
-Path = Path.home()
-
-home = str(Path)+'\PycharmProjects\pythonProject\\'
-
-#(x)
-
-
+#For importing image library
 import zipfile
-import shutil
+
+
+#Setting up home path of where all our files will be
+Path = Path.home()
+home = str(Path)+'\PycharmProjects\pythonProject\\'
 
 
 # Specify the path to the zip file
@@ -50,7 +49,7 @@ Run this part of the code once
 # files_to_move = extracted_files[:10]  # Select the first 10 files (adjust as needed)
 """
 
-#Use when need to add more photos to the training se
+#Used when need to add more photos to the training set
 # extracted_files = os.listdir(destination_folder)
 # files_to_move = extracted_files[:500]
 #
@@ -61,16 +60,13 @@ Run this part of the code once
 #     shutil.move(source_path, modified_dp)
 #
 
-
-#Path_test = Path()
-
+# Used to set up our training and validation paths
 train_path = home +'train'
-#train_path = Path_test / 'train_folder'
 val_path = home + 'val'
-
 val_inner = val_path + '/val_folder'
 
-#Debugg
+#Debuggging (Used to make sure our training and valdation images were in the correct fomrat)
+# by making sure they were a directory and a class folder
 # x = os.scandir(train_path)
 #
 # with os.scandir(train_path) as itr:
@@ -81,22 +77,10 @@ val_inner = val_path + '/val_folder'
 #             print("% s is a directory." % entry.name)
 #         else:
 #             print("% s is not a directory." % entry.name)
+###
 
 
-
-
-
-
-
-# # If the image folder doesn't exist, download it and prepare it...
-# if x.is_dir():
-#     print(f"{x} directory exists.")
-# else:
-#     print(f"Did not find {x} directory, creating one...")
-#     x.mkdir(parents=True, exist_ok=True)
-
-
-
+#Used when need to add more photos to the validation set
 # file_name_v = extracted_files[25]
 # source_path_v = destination_folder + file_name_v
 # destination_path_v = val_path +'\\' + file_name_v
@@ -105,6 +89,7 @@ val_inner = val_path + '/val_folder'
 
 
 
+#Set up of our models
 class ColorizationNet(nn.Module):
     def __init__(self, input_size=128):
         super(ColorizationNet, self).__init__()
@@ -150,12 +135,6 @@ class ColorizationNet(nn.Module):
 
 
 
-
-
-
-
-
-
 def shrink_image(image_path, output_path, size):
     # Open the image
     image = Image.open(image_path)
@@ -190,8 +169,10 @@ def shrink_image(image_path, output_path, size):
     # Save the resized and shrinked image
     output_image.save(output_path)
 
-# Example usage
-input_image_path = home + 'Hela_cells.jpg'  # Replace with your input image path
+# Prepares Electron Microscopy Images to be used for Validation
+# by shrinking the picture to a 256 by 256 pixel image
+
+input_image_path = home + 'Hela_cells.jpg'
 input_image_path = input_image_path.replace('/', '\\')
 
 output_image_path = home +'hela_cells_256.jpg'  # Replace with the desired output image path
@@ -204,8 +185,13 @@ shutil.move(output_image_path,val_inner+'\\hela_cells_256.jpg')
 use_gpu = torch.cuda.is_available()
 model = ColorizationNet()
 
+#### These were the two criterion used in our Image colorization (Mean Squared Error and Huber Loss)
 #criterion = nn.MSELoss()
 criterion = nn.SmoothL1Loss()
+####
+
+
+# Optimizes our Loss Functions
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-2, weight_decay=0.0)
 
 class GrayscaleImageFolder(datasets.ImageFolder):
@@ -227,12 +213,12 @@ class GrayscaleImageFolder(datasets.ImageFolder):
     return img_original, img_ab, target
 
 
-# # Training
+# # Prepares images for Training Set
 train_transforms = transforms.Compose([transforms.RandomResizedCrop(224), transforms.RandomHorizontalFlip()])
 train_imagefolder = GrayscaleImageFolder(train_path, train_transforms)
 train_loader = torch.utils.data.DataLoader(train_imagefolder, batch_size=64, shuffle=True)
 
-# Validation
+## Prepares images for Validation Set
 val_transforms = transforms.Compose([transforms.Resize(256), transforms.CenterCrop(224)])
 val_imagefolder = GrayscaleImageFolder(val_path, val_transforms)
 val_loader = torch.utils.data.DataLoader(val_imagefolder, batch_size=64, shuffle=False)
@@ -267,6 +253,7 @@ def to_rgb(grayscale_input, ab_input, save_path=None, save_name=None):
 
 
 def validate(val_loader, model, criterion, save_images, epoch):
+  "This is reposnible for calculating the losses for the validation set for each iteration "
   model.eval()
 
   # Prepare value counters and timers
@@ -314,10 +301,7 @@ train_losses = []
 val_losses = []
 
 def train(train_loader, model, criterion, optimizer, epoch, epoch_list,train_losses):
-
-
-
-
+  "This is responisble for calculating the training losses for each iteration"
   print('Starting training epoch {}'.format(epoch))
   model.train()
 
@@ -325,11 +309,6 @@ def train(train_loader, model, criterion, optimizer, epoch, epoch_list,train_los
   batch_time, data_time, losses = AverageMeter(), AverageMeter(), AverageMeter()
 
   end = time.time()
-
-
-
-
-
 
   for i, (input_gray, input_ab, target) in enumerate(train_loader):
 
@@ -349,13 +328,8 @@ def train(train_loader, model, criterion, optimizer, epoch, epoch_list,train_los
     loss.backward()
     optimizer.step()
 
-
     # Record the loss value
     train_losses.append(loss.item())
-
-
-
-
 
 
     # Record time to do forward and backward passes
@@ -374,7 +348,6 @@ def train(train_loader, model, criterion, optimizer, epoch, epoch_list,train_los
   print('Finished training epoch {}'.format(epoch))
   epoch_list.append(epoch)
   return epoch_list
-
 
 
 # Move model and loss function to GPU
@@ -409,24 +382,9 @@ import matplotlib.image as mpimg
 image_pairs = [('outputs/color/img-3-epoch-99.jpg', 'outputs/gray/img-3-epoch-0.jpg'),
                ('outputs/color/img-1-epoch-99.jpg', 'outputs/gray/img-1-epoch-0.jpg'),
                ('outputs/color/img-2-epoch-99.jpg', 'outputs/gray/img-2-epoch-0.jpg')]
-#
-#
-# x = np.linspace(0, 100, 100)  # Range of predicted values
-#  # MSE loss for each predicted value
-# plt.plot(x, epoch_list)
-# plt.xlabel('Predicted Values')
-# plt.ylabel('Mean Squared Error (MSE)')
-# plt.title('MSE Loss Function')
-# plt.grid(True)
-# plt.show()
-#
 
 
-# mlp for regression with mse loss function
-
-
-# Plot the loss function graph
-
+# Plot the valiation loss function graph
 plt.plot(epoch_list, val_losses, label='Validation Loss')
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
@@ -445,7 +403,7 @@ for c, g in image_pairs:
   axarr[0].axis('off'), axarr[1].axis('off')
   plt.show()
 
-# Plot the loss function graph
+# Plot the training loss function graph
 plt.plot(epoch_list, train_losses, label='Training Loss')
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
