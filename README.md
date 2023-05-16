@@ -2,9 +2,12 @@
 The goal of this project is to use convolutional neural networks to colorize grayscale images. 
 
 Problem Statement:
+
 Microscopy images play a crucial role in understanding the complex processes occurring in biochemical engineering. The grayscale nature of these images limits our ability to visually observe and interpret the various components and phenomena within them. Therefore, there is a need to develop an image colorization system utilizing neural networks to enhance our understanding of microscopy images and enable a comprehensive visual analysis of the biochemical engineering processes.
 The objective of this project was to design and implement a robust neural network-based image colorization model that can accurately add color information to grayscale microscopy images. By leveraging the power of deep learning techniques, the proposed solution aims to enable researchers and engineers to perceive and interpret the finer details, structures, and dynamics of biochemical engineering processes more effectively. This enhanced visual understanding will facilitate the identification of important features, patterns, and abnormalities, leading to better analysis, interpretation, and decision-making in the field.
+
 Dataset Analysis:
+
 Dataset analysis played a crucial role in the development of an effective image colorization system for microscopy images in biochemical engineering. A thorough understanding of the dataset characteristics was essential to make informed decisions during the model development and evaluation phases. 
 The dataset needed to be sufficiently large to capture the wide range of variations and complexities present in microscopy images. It should consist of a diverse collection of grayscale microscopy images along with their corresponding ground truth color images. A larger dataset allows the model to learn more comprehensive representations and generalize better to unseen data. However, it was essential to strike a balance between dataset size and computational resources required for training.
 Studying the color distribution and variation in the dataset was important to identify any biases or patterns. The color distribution should cover a wide range of hues, saturations, and intensities to enable the model to learn diverse color representations. 
