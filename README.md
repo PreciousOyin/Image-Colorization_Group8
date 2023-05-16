@@ -33,9 +33,12 @@ Results of the 12 images training set:
 ![Colorization_12_Results.jpg](Colorization_12_Results.jpg)
 
 Result of 500 images image training set:
-
+![Colorization_500_Results.jpg](Colorization_500_Results.jpg)
 
 When the model was tested on a grayscale image of a HeLa cell, we see that it outputs an image with a yellow tone. The organelles of the cell are do not have different colors.
+
+Result of HeLa Colorization:
+![Hela Colorization.jpg](Hela_Colorization.jpg)
 
 # Analysis 
 (Two different Criterions were used)
