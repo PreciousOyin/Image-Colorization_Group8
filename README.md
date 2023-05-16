@@ -41,7 +41,6 @@ Result of HeLa Colorization:
 ![Hela Colorization.jpg](Hela_Colorization.jpg)
 
 # Analysis 
-(Two different Criterions were used)
 
 The loss curves for Mean Squared Error are:
 ![MSE_Results.png](MSE_Results.png)
