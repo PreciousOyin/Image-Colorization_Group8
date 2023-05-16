@@ -8,8 +8,11 @@ The main code for building the model is the file: Image_Colorization_Group8_Code
 We wanted to compare how colorization would be affected if we trained 12 images vs 500 images. The processing time for 12 images was about 10 minutes whereas the processing time for 500 images was about 2 hours. We also looked two different regression models and compared their loss. That being the mean squared error and the Hubor loss. 
 
 # Results from Image Colorization 
-The loss curves are:
+The loss curves for Mean Squared Error are:
 ![MSE_Results.png](MSE_Results.png)
+
+The loss curves for Hubor Loss are:
+![Huber_Results.png](Huber_Results.png)
 
 # Analysis 
 (Two different Criterions were used)
