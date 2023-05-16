@@ -1,6 +1,7 @@
 # Image-Colorization_Group8
 The goal of this project is to use convolutional neural networks to colorize grayscale images. 
 
+# Introduction
 Problem Statement:
 
 Microscopy images play a crucial role in understanding the complex processes occurring in biochemical engineering. The grayscale nature of these images limits our ability to visually observe and interpret the various components and phenomena within them. Therefore, there is a need to develop an image colorization system utilizing neural networks to enhance our understanding of microscopy images and enable a comprehensive visual analysis of the biochemical engineering processes.
