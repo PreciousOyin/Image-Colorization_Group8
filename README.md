@@ -1,4 +1,7 @@
 # Image-Colorization_Group8
 
-Used as a test
-hi there
+# Results from Image Colorization 
+
+
+# Analysis 
+(Two different Criterions were used)
