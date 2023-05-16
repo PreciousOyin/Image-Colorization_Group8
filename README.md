@@ -29,6 +29,12 @@ We wanted to compare how colorization would be affected if we trained 12 images 
 
 When observing the output for the 12 image training set, we see that the resultant images have more of a blue overtone. Additionally, the model struggles to identify red and green areas such as the candy bar wrapper or the grass present. While the outputs for taining 500 images gave less blue tones, we see that greens are still not picked up (the lawn in the house image is yellow).
 
+Results of the 12 images training set:
+![Colorization_12_Results.jpg](Colorization_12_Results.jpg)
+
+Result of 500 images image training set:
+
+
 When the model was tested on a grayscale image of a HeLa cell, we see that it outputs an image with a yellow tone. The organelles of the cell are do not have different colors.
 
 # Analysis 
