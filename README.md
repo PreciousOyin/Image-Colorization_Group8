@@ -5,10 +5,15 @@ The database used to train the model was MIT places 2: https://www.kaggle.com/da
 The code was adapted from: https://lukemelas.github.io/image-colorization.html 
 The main code for building the model is the file: Image_Colorization_Group8_Code.py
 
+The model was trained by taking colored images from the database and reverting them to a grayscale. Then convolutional neural networks were used to process the image and the predicted colorized version was compared with the original.
+
 We wanted to compare how colorization would be affected if we trained 12 images vs 500 images. The processing time for 12 images was about 10 minutes whereas the processing time for 500 images was about 2 hours. We also looked two different regression models and compared their loss. That being the mean squared error and the Hubor loss. 
 
 # Results from Image Colorization 
 
+When observing the output for the 12 image training set, we see that the resultant images have more of a blue overtone. Additionally, the model struggles to identify red and green areas such as the candy bar wrapper or the grass present. While the outputs for taining 500 images gave less blue tones, we see that greens are still not picked up (the lawn in the house image is yellow).
+
+When the model was tested on a grayscale image of a HeLa cell, we see that it outputs an image with a yellow tone. The organelles of the cell are do not have different colors.
 
 # Analysis 
 (Two different Criterions were used)
